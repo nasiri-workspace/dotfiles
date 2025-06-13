@@ -170,6 +170,10 @@ return {
 
 					-- custom mappings
 					vim.keymap.set("n", "t", api.node.open.tab, opts("Tab"))
+					-- Toggle hidden files and node_modules
+					vim.keymap.set("n", "H", api.tree.toggle_hidden_filter, opts("Toggle Hidden Files"))
+					vim.keymap.set("n", "I", api.tree.toggle_gitignore_filter, opts("Toggle Git Ignored Files"))
+					vim.keymap.set("n", "U", api.tree.toggle_custom_filter, opts("Toggle Custom Filter"))
 				end,
 				actions = {
 					open_file = {
@@ -186,12 +190,11 @@ return {
 				renderer = {
 					group_empty = true,
 				},
-				filters = {
-					dotfiles = true,
-					custom = {
-						"node_modules/.*",
-					},
-				},
+			filters = {
+				dotfiles = false,  -- Show hidden files (dotfiles)
+				git_ignored = false,  -- Show git ignored files
+				custom = {},  -- Remove node_modules filter to show it
+			},
 				log = {
 					enable = true,
 					truncate = true,
